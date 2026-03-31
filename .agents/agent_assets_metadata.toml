@@ -1,0 +1,38 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "8MXVaSEIJEQ9x-w59cJeZ"
+uri = "file://artifacts/portfolio/public/projects/project1.png"
+type = "image"
+title = "3D Space Station"
+
+[[generated]]
+id = "bKyuvuiYBBNcAvu_AmHUB"
+uri = "file://artifacts/portfolio/public/projects/project2.png"
+type = "image"
+title = "Neon E-commerce"
+
+[[generated]]
+id = "h4d7tOKEJyUEE-Dc66Q6J"
+uri = "file://artifacts/portfolio/public/projects/project3.png"
+type = "image"
+title = "Viral Crypto Campaign"
+
+[[generated]]
+id = "S6KCGep5-F9kIkOmhhigI"
+uri = "file://artifacts/portfolio/public/projects/project4.png"
+type = "image"
+title = "Procedural Art Generator"
+
+[[generated]]
+id = "NzVxEl0nfboMDDqtDahso"
+uri = "file://artifacts/portfolio/public/projects/project5.png"
+type = "image"
+title = "Abstract Character Rig"
+
+[[generated]]
+id = "gLvaRA9U7jfJP0gelnnHV"
+uri = "file://artifacts/portfolio/public/projects/project6.png"
+type = "image"
+title = "Global Launch Strategy"
