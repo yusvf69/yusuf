@@ -23,7 +23,7 @@ export function Navigation() {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <a href="#home" className="text-2xl font-bold font-sans tracking-tighter text-gradient interactive">
-          ALEX.
+          YUSUF.
         </a>
         <div className="flex items-center gap-8">
           <div className="hidden md:flex items-center gap-6 text-sm font-mono uppercase tracking-wider text-muted-foreground">

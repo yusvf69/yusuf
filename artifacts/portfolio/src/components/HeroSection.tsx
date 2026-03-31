@@ -94,7 +94,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.8 }}
             className="text-xl text-muted-foreground max-w-2xl mb-10 drop-shadow-md backdrop-blur-sm bg-background/10 p-2 rounded-lg"
           >
-            Hi, I'm Alex Creative. A 3D designer, developer, and digital strategist focused on pushing the boundaries of web experiences.
+            Hi, I'm Yusuf. A 3D designer, developer, and digital strategist focused on pushing the boundaries of web experiences.
           </motion.p>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
