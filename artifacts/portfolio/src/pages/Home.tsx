@@ -23,7 +23,9 @@ export default function Home() {
         <SkillsSection />
         <PortfolioSection />
         <AboutSection />
-        <InteractiveSection />
+        <Suspense fallback={<div className="min-h-[50vh]" />}>
+          <InteractiveSection />
+        </Suspense>
         <ContactSection />
       </main>
       <footer className="py-12 text-center border-t border-border/50 bg-card/30 relative overflow-hidden">
