@@ -1,15 +1,12 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
+import { HeroSection } from "@/components/HeroSection";
 import { SkillsSection } from "@/components/SkillsSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
 import { AboutSection } from "@/components/AboutSection";
+import { InteractiveSection } from "@/components/InteractiveSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Navigation } from "@/components/Navigation";
 import { CustomCursor } from "@/components/CustomCursor";
-
-const HeroSection = lazy(() => import("@/components/HeroSection"));
-const InteractiveSection = lazy(
-  () => import("@/components/InteractiveSection"),
-);
 
 export default function Home() {
   return (
