@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
@@ -27,5 +26,8 @@
     "@types/node": "catalog:",
     "@types/nodemailer": "^7.0.11",
     "esbuild": "^0.27.3"
+  },
+  "vercel": {
+    "framework": "express"
   }
 }
