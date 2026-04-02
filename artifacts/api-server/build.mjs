@@ -21,7 +21,6 @@ async function buildAll() {
     outExtension: { ".js": ".mjs" },
     logLevel: "info",
     external: [
-      "*.node",
       "sharp",
       "better-sqlite3",
       "sqlite3",
@@ -30,19 +29,9 @@ async function buildAll() {
       "argon2",
       "fsevents",
       "re2",
-      "farmhash",
-      "xxhash-addon",
-      "bufferutil",
-      "utf-8-validate",
-      "ssh2",
-      "cpu-features",
-      "dtrace-provider",
-      "isolated-vm",
-      "lightningcss",
       "pg-native",
       "oracledb",
       "mongodb-client-encryption",
-      "nodemailer",
       "handlebars",
       "knex",
       "typeorm",
@@ -103,7 +92,7 @@ import __bannerUrl from 'node:url';
 globalThis.require = __bannerCrReq(import.meta.url);
 globalThis.__filename = __bannerUrl.fileURLToPath(import.meta.url);
 globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
-    `,
+      `,
     },
   });
 }

@@ -26,8 +26,5 @@
     "@types/node": "catalog:",
     "@types/nodemailer": "^7.0.11",
     "esbuild": "^0.27.3"
-  },
-  "vercel": {
-    "framework": "express"
   }
 }
