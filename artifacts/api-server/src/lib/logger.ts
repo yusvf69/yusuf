@@ -1,20 +1,29 @@
-import pino from "pino";
+type LogLevel = "debug" | "info" | "warn" | "error";
 
-const isProduction = process.env.NODE_ENV === "production";
+const logLevel: LogLevel = (process.env.LOG_LEVEL as LogLevel) || "info";
 
-export const logger = pino({
-  level: process.env.LOG_LEVEL ?? "info",
-  redact: [
-    "req.headers.authorization",
-    "req.headers.cookie",
-    "res.headers['set-cookie']",
-  ],
-  ...(isProduction
-    ? {}
-    : {
-        transport: {
-          target: "pino-pretty",
-          options: { colorize: true },
-        },
-      }),
-});
+const levels: Record<LogLevel, number> = {
+  debug: 0,
+  info: 1,
+  warn: 2,
+  error: 3,
+};
+
+function shouldLog(level: LogLevel): boolean {
+  return levels[level] >= levels[logLevel];
+}
+
+export const logger = {
+  debug: (obj: object, msg?: string) => {
+    if (shouldLog("debug")) console.debug(msg || "", obj);
+  },
+  info: (obj: object, msg?: string) => {
+    if (shouldLog("info")) console.info(msg || "", obj);
+  },
+  warn: (obj: object, msg?: string) => {
+    if (shouldLog("warn")) console.warn(msg || "", obj);
+  },
+  error: (obj: object, msg?: string) => {
+    if (shouldLog("error")) console.error(msg || "", obj);
+  },
+};
