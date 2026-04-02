@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -8,21 +9,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export interface SendEmailParams {
-  to: string;
-  subject: string;
-  name: string;
-  email: string;
-  message: string;
-}
-
-export async function sendContactEmail({
+async function sendContactEmail({
   to,
   subject,
   name,
   email,
   message,
-}: SendEmailParams) {
+}: {
+  to: string;
+  subject: string;
+  name: string;
+  email: string;
+  message: string;
+}) {
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px;">
       <h2 style="color: #333;">New Contact Form Submission</h2>
@@ -49,4 +48,34 @@ export async function sendContactEmail({
     subject,
     html: htmlContent,
   });
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method === "POST" && req.url === "/api/contact") {
+    try {
+      const { name, email, message } = req.body;
+
+      if (!name || !email || !message) {
+        res.status(400).json({ error: "Missing required fields" });
+        return;
+      }
+
+      await sendContactEmail({
+        to: "youssefwork39@gmail.com",
+        subject: `Project Inquiry from ${name}`,
+        name,
+        email,
+        message,
+      });
+
+      res.json({ success: true, message: "Email sent successfully" });
+    } catch (error) {
+      console.error("Email error:", error);
+      res.status(500).json({ error: "Failed to send email" });
+    }
+  } else if (req.method === "GET" && req.url === "/api/healthz") {
+    res.json({ status: "ok" });
+  } else {
+    res.status(404).json({ error: "Not found" });
+  }
 }
