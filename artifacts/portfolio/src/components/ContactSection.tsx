@@ -3,7 +3,14 @@ import { motion } from "framer-motion";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { Github, Twitter, Linkedin, Mail, ArrowRight, Send } from "lucide-react";
+import {
+  Github,
+  Twitter,
+  Linkedin,
+  Mail,
+  ArrowRight,
+  Send,
+} from "lucide-react";
 import { useToast } from "../hooks/use-toast";
 
 const CONTACT_EMAIL = "youssefwork39@gmail.com";
@@ -14,24 +21,42 @@ export function ContactSection() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) return;
 
-    const subject = encodeURIComponent(`Project Inquiry from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    );
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
 
-    toast({
-      title: "Opening your email client...",
-      description: `Sending your message to ${CONTACT_EMAIL}`,
-    });
+      if (response.ok) {
+        toast({
+          title: "Message sent!",
+          description: "Your message has been sent successfully.",
+        });
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        throw new Error("Failed to send");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
-    <section id="contact" className="py-32 relative bg-card/40 border-t border-border/50">
+    <section
+      id="contact"
+      className="py-32 relative bg-card/40 border-t border-border/50"
+    >
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -42,12 +67,17 @@ export function ContactSection() {
           >
             <div className="flex items-center md:justify-center gap-4 mb-6">
               <div className="w-12 h-px bg-primary hidden md:block"></div>
-              <span className="font-mono text-primary uppercase tracking-widest text-sm">Get In Touch</span>
+              <span className="font-mono text-primary uppercase tracking-widest text-sm">
+                Get In Touch
+              </span>
               <div className="w-12 h-px bg-primary hidden md:block"></div>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold font-sans tracking-tighter mb-6 text-gradient pb-2">Let's Work Together</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold font-sans tracking-tighter mb-6 text-gradient pb-2">
+              Let's Work Together
+            </h2>
             <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
-              Have a project in mind, a wild idea, or just want to explore what's possible? Send me a message.
+              Have a project in mind, a wild idea, or just want to explore
+              what's possible? Send me a message.
             </p>
           </motion.div>
 
@@ -61,10 +91,13 @@ export function ContactSection() {
             >
               <div>
                 <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                  Direct Line <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                  Direct Line{" "}
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Currently open to new projects. I specialize in 3D web experiences, creative frontend development, and digital strategy.
+                  Currently open to new projects. I specialize in 3D web
+                  experiences, creative frontend development, and digital
+                  strategy.
                 </p>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
@@ -75,14 +108,18 @@ export function ContactSection() {
                     <Mail size={20} className="text-primary" />
                   </div>
                   <div>
-                    <span className="block text-xs text-muted-foreground mb-1 uppercase tracking-wider">Email</span>
+                    <span className="block text-xs text-muted-foreground mb-1 uppercase tracking-wider">
+                      Email
+                    </span>
                     <span className="font-bold">{CONTACT_EMAIL}</span>
                   </div>
                 </a>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold mb-6 font-mono uppercase tracking-widest text-sm text-muted-foreground">Find Me Online</h3>
+                <h3 className="text-xl font-bold mb-6 font-mono uppercase tracking-widest text-sm text-muted-foreground">
+                  Find Me Online
+                </h3>
                 <div className="flex gap-4">
                   {[
                     { icon: Github, href: "#", name: "GitHub" },
@@ -112,7 +149,10 @@ export function ContactSection() {
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   <div className="space-y-3">
-                    <label htmlFor="name" className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2"
+                    >
                       <span className="text-primary">&gt;</span> Your Name
                     </label>
                     <Input
@@ -126,7 +166,10 @@ export function ContactSection() {
                     />
                   </div>
                   <div className="space-y-3">
-                    <label htmlFor="email" className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                    <label
+                      htmlFor="email"
+                      className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2"
+                    >
                       <span className="text-primary">&gt;</span> Your Email
                     </label>
                     <Input
@@ -142,7 +185,10 @@ export function ContactSection() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label htmlFor="message" className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                  <label
+                    htmlFor="message"
+                    className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2"
+                  >
                     <span className="text-primary">&gt;</span> Message
                   </label>
                   <Textarea
@@ -164,7 +210,10 @@ export function ContactSection() {
                   <span className="flex items-center justify-center gap-3">
                     <Send size={16} />
                     Send Message
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight
+                      size={16}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
                   </span>
                 </Button>
               </form>
